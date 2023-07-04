@@ -2,30 +2,22 @@ body{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     background-color: #2A353F;
     width: 100%;
     height: 100%;
     min-height: 100vh;
     margin: 0;
-
 }
 
 *{
     box-sizing: border-box;
 }
 
-h1{
+main{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10px;
-}
-
-section{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 25px;
 }
 
 #body{
@@ -38,18 +30,29 @@ section{
 }
 
 #display{
-    border: 1px solid blue;
-    width: 22rem;
-    height: 5.5rem;
     display: flex;
-    margin: 10px auto;
-    border-radius: 15px;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
+    border-radius: 15px 15px 0px 0px;
+    flex-grow: 1;
+}
+
+#result{
+    margin: 10px 18px ;
+    font-size: 2rem;
+}
+
+#operation{
+    margin: 10px 18px ;
+    font-size: 1rem;
 }
 
 button{
     width: 5.5rem;
     height: 5rem;
     flex-grow: 1;
+    font-size: 2rem;
 }
 
 #btnBox{
@@ -64,5 +67,4 @@ button{
 
 #equal{
     border-radius: 0px 0px 20px 0px;
-    
 }
