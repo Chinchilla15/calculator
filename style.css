@@ -38,12 +38,12 @@ main{
     flex-grow: 1;
 }
 
-#result{
+#currentOperation{
     margin: 10px 18px ;
     font-size: 2rem;
 }
 
-#operation{
+#previousOperation{
     margin: 10px 18px ;
     font-size: 1rem;
 }
