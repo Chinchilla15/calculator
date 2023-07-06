@@ -11,21 +11,51 @@ const buttons = document.querySelectorAll('button');
 let num1 = null;
 let num2 = null;
 let operator = null
+let calculationPerformed = false;
+
+//Captures number selected, checks if an operator has already been made, displays number(s) selected
+function handleNumber(number){
+    if(calculationPerformed){
+        currentOperation.textContent = number;
+        calculationPerformed = false;
+    }else{
+        if (currentOperation.textContent === '0'){
+            currentOperation.textContent = number;
+        }else{
+            currentOperation.textContent += number;
+        }
+    }
+}
+
+//Captures operator selected, updates the display, shows result 
+function handleOperator(selectedOperator){
+    if (num1 === null){
+        num1 = parseFloat(currentOperation.textContent);
+        operator = selectedOperator;
+        previousOperation.textContent = currentOperation.textContent + ' ' + operator;
+        currentOperation.textContent = '';
+    }else{
+        if(num2 === null){
+            operator = selectedOperator;
+            previousOperation.textContent = num1 + ' ' + operator;
+        }else {
+        const result = operate(num1, num2, operator);
+        num1 = result;
+        operator = selectedOperator;
+        previousOperation.textContent = result + ' ' + operator;
+        currentOperation.textContent = ' ';
+         }
+    }
+    calculationPerformed = false;
+}
 
 numbersBtn.forEach(button=>{
     button.addEventListener('click',function(){
         const number = this.textContent;
-        appendNumber(number);
+        handleNumber(number);
     })
 })
 
-function appendNumber(number){
-    if(currentOperation.textContent === '0'){
-        currentOperation.textContent = number;
-    }else{
-        currentOperation.textContent += number;
-    }
-}
 
 operatorBtn.forEach(button =>{
     button.addEventListener('click',function(){
@@ -34,32 +64,20 @@ operatorBtn.forEach(button =>{
     })
 })
 
-function handleOperator(selectedOperator){
-    if (num1 === null){
-        num1 = parseFloat(currentOperation.textContent);
-        operator = selectedOperator;
-        previousOperation.textContent = currentOperation.textContent + ' ' + operator;
-        currentOperation.textContent = '';
-    }else {
-        num2 = parseFloat(currentOperation.textContent);
-        const result = operate(num1, num2, operator);
-        num1 = result;
-        operator = selectedOperator;
-        previousOperation.textContent = result + ' ' + operator;
-        currentOperation.textContent = ' ';
-    }
-}
-
 function operate(num1, num2, op){
     switch(op){
         case '+':
             return num1 + num2;
-        case '-': 
+        case '-':
             return num1 - num2;
         case 'x':
             return num1 * num2;
         case '\u00F7':
-            return num1 / num2;
+            if(num1 === 0 || num2 === 0){
+                return 'Not Possible!'
+            }else{
+                return num1 / num2;
+            }
         case '%':
             return (num1 / 100) * num2;
     }
@@ -67,12 +85,16 @@ function operate(num1, num2, op){
 
 equal.addEventListener('click', ()=>{
     if(num1 !== null && operator !== null){
-        const num2 = parseFloat(currentOperation.textContent);
+        let num2 = parseFloat(currentOperation.textContent);
+        if(isNaN(num2)){
+            num2 = num1;
+        }
         const result = operate(num1, num2, operator);
         previousOperation.textContent = '';
         currentOperation.textContent = result;
         num1 = null;
         operator = null;
+        calculationPerformed = true;
     }
 })
 
@@ -82,6 +104,7 @@ ac.addEventListener('click', ()=>{
     num1 = null;
     num2 = null;
     operator = null;
+    calculationPerformed = false;
 })
 
 decimal.addEventListener('click', ()=>{
