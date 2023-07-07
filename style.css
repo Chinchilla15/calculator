@@ -2,7 +2,7 @@ body{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     background-color: #2A353F;
     width: 100%;
     height: 100%;
@@ -19,6 +19,7 @@ main{
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-grow: 1;
 }
 
 #body{
@@ -115,4 +116,21 @@ button{
 [data-operator]:active,
 #equal:active{
     background-color: #d57e1b;
+}
+
+footer{
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    height: 3.5rem;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+a:hover{
+    color: rgb(15, 15, 103);
 }
