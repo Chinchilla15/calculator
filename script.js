@@ -31,6 +31,9 @@ function handleNumber(number){
 
 //Captures operator selected, updates the display, shows result 
 function handleOperator(selectedOperator){
+    if(currentOperation.textContent === 'Not Possible!'){
+        return;
+    }
     if (num1 === null){
         num1 = parseFloat(currentOperation.textContent);
         operator = selectedOperator;
@@ -118,17 +121,12 @@ decimal.addEventListener('click', ()=>{
 })
 
 deleteBtn.addEventListener('click',()=>{
-    if(!calculationPerformed && currentOperation.textContent !== 'Not Possible!'){
+    if(!calculationPerformed){
         if(currentOperation.textContent.length > 1){
         currentOperation.textContent = currentOperation.textContent.slice(0, -1);
         } else { 
             currentOperation.textContent = '0';
             deleteBtnDisabled = true;
         }
-    }else if (currentOperation.textContent === 'Not Possible!'){
-        deleteBtnDisabled = true;
-        operatorBtn.forEach(button => {
-            deleteBtnDisabled = true;
-        })
     }
 })
