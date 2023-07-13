@@ -12,6 +12,7 @@ let num1 = null;
 let num2 = null;
 let operator = null
 let calculationPerformed = false;
+let deleteBtnDisabled = true;
 
 //Captures number selected, checks if an operator has already been made, displays number(s) selected
 function handleNumber(number){
@@ -21,6 +22,7 @@ function handleNumber(number){
     }else{
         if (currentOperation.textContent === '0'){
             currentOperation.textContent = number;
+            deleteBtnDisabled = false;
         }else{
             currentOperation.textContent += number;
         }
@@ -34,6 +36,7 @@ function handleOperator(selectedOperator){
         operator = selectedOperator;
         previousOperation.textContent = currentOperation.textContent + ' ' + operator;
         currentOperation.textContent = '';
+        deleteBtnDisabled = true;
     }else{
         if(num2 === null){
             operator = selectedOperator;
@@ -47,6 +50,7 @@ function handleOperator(selectedOperator){
          }
     }
     calculationPerformed = false;
+    deleteBtnDisabled = true;
 }
 
 numbersBtn.forEach(button=>{
@@ -114,5 +118,17 @@ decimal.addEventListener('click', ()=>{
 })
 
 deleteBtn.addEventListener('click',()=>{
-    currentOperation.textContent = currentOperation.textContent.slice(0, -1);
+    if(!calculationPerformed && currentOperation.textContent !== 'Not Possible!'){
+        if(currentOperation.textContent.length > 1){
+        currentOperation.textContent = currentOperation.textContent.slice(0, -1);
+        } else { 
+            currentOperation.textContent = '0';
+            deleteBtnDisabled = true;
+        }
+    }else if (currentOperation.textContent === 'Not Possible!'){
+        deleteBtnDisabled = true;
+        operatorBtn.forEach(button => {
+            deleteBtnDisabled = true;
+        })
+    }
 })
